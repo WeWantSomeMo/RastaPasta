@@ -1,8 +1,8 @@
 const inquirer = require("inquirer")
 const fs = require("fs");
 const Manager = require('./lib/Manager.js');
-// const Foh = require('./lib/Foh');
-// const Kitchen = require('./lib/Kitchen')
+const Foh = require('./lib/Foh');
+const Kitchen = require('./lib/Kitchen')
 // const generateSite = require('./src/generate-site.js');
 // const path = require("path");
 // const teamMembers = [];
@@ -168,6 +168,7 @@ function Kitchen() {
             },
         ])
 }
+
 function Foh() {
     inquirer
         .prompt([
@@ -263,7 +264,7 @@ function newTeammate () {
         } else if (answer.role === "Front of House"){
             Foh()
         } else{
-            fs.writeFileSync
+            fs.writeFileSync('./generateHTML.js', )
         }
     })
 }
