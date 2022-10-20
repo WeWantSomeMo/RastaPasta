@@ -7,16 +7,18 @@ const Kitchen = require('./lib/Kitchen')
 // const path = require("path");
 // const teamMembers = [];
 const Managerarr = []
+const Kitchenarr = []
+const Foh = []
 
 
-Manager()
+managerPrompt()
 
-function Manager() {
+function managerPrompt() {
     inquirer
         .prompt([
             {
                 type: "input",
-                message: "What is the employee's first name?",
+                message: "What is the Manager's first name?",
                 name: "first_name",
                 validate: firstNameInput => {
                     if (firstNameInput) {
@@ -30,7 +32,7 @@ function Manager() {
             },
             {
                 type: "input",
-                message: "What is the employee's last name",
+                message: "What is the Manager's last name",
                 name: 'last_name',
                 validate: lastNameInput => {
                     if (lastNameInput) {
@@ -44,7 +46,7 @@ function Manager() {
             },
             {
                 type: "input",
-                message: "What is the employee's ID?",
+                message: "What is the Manager's ID?",
                 name: "empId",
                 validate: idInput => {
                     if (idInput) {
@@ -72,7 +74,7 @@ function Manager() {
             },
             {
                 type: "input",
-                message: "What is the employee's email?",
+                message: "What is the Manager's email?",
                 name: "email",
                 validate: emailInput => {
                     if (emailInput) {
@@ -93,7 +95,7 @@ function Manager() {
         })
 }
 
-function Kitchen() {
+function kitchenPrompt() {
     inquirer
         .prompt([
             {
@@ -166,10 +168,14 @@ function Kitchen() {
                     }
                 },
             },
-        ])
-}
+        ]).then(answer => {
+            const kitchen = new Kitchen(answer.first_name, answer.last_name, answer.email, answer.empid, answer.safety)
+            Kitchenarr.push(kitchen)
+            mainMenu()
+        }
+    )}
 
-function Foh() {
+function fohPrompt() {
     inquirer
         .prompt([
             {
@@ -260,9 +266,9 @@ function newTeammate () {
 
     }]) .then(answer => {
         if (answer.role === "Kitchen"){
-            Kitchen()
+            kitchenPrompt()
         } else if (answer.role === "Front of House"){
-            Foh()
+            fohPrompt()
         } else{
             fs.writeFileSync('./generateHTML.js', )
         }
