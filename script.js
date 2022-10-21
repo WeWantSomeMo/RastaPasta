@@ -1,17 +1,49 @@
 const inquirer = require("inquirer")
 const fs = require("fs");
 const Manager = require('./lib/Manager.js');
-const Foh = require('./lib/Foh');
+// const Foh = require('./lib/Foh');
 const Kitchen = require('./lib/Kitchen')
-// const generateSite = require('./src/generate-site.js');
-// const path = require("path");
+const generateHTML = require('./generateHTML');
+const path = require("path");
+// const OUTPUT_DIR = path.resolve(__dirname, "output")
+// const outputPath = path.join(OUTPUT_DIR, "RastaPasta.html")
 // const teamMembers = [];
-const Managerarr = []
-const Kitchenarr = []
-const Foh = []
+const managerarr = []
+const kitchenarr = []
+// const foharr = []
 
+function mainMenu() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                message:"Welcome to the Main Menu! What would you like to do?",
+                name: "mainMenu",
+                choices: ["Add New Teammate", "Add New Manager", "I'm Done!"],
+               
+            } 
 
-managerPrompt()
+        ]).then(answer => {
+            if (answer.mainMenu === "Add New Teammate"){
+                newTeammate()
+            } else if (answer.mainMenu === "Add New Manager"){
+                managerPrompt() 
+            }  else {
+                // fs.mkdirSync(OUTPUT_DIR)
+                fs.writeFile( 'RastaPasta.html', generateHTML(managerarr), "utf-8")
+            }
+        })
+}
+
+// .then(answer => {
+//     if (answer.role === "Kitchen"){
+//         kitchenPrompt()
+//     } else if (answer.role === "Front of House"){
+//         fohPrompt()
+//     } 
+
+mainMenu()
+
 
 function managerPrompt() {
     inquirer
@@ -90,8 +122,8 @@ function managerPrompt() {
 
         ]) .then(answer => {
             const manager = new Manager(answer.first_name, answer.last_name, answer.email, answer.empid, answer.officeNum)
-            Managerarr.push(manager)
-            newTeammate()
+            managerarr.push(manager)
+            mainMenu()
         })
 }
 
@@ -170,7 +202,7 @@ function kitchenPrompt() {
             },
         ]).then(answer => {
             const kitchen = new Kitchen(answer.first_name, answer.last_name, answer.email, answer.empid, answer.safety)
-            Kitchenarr.push(kitchen)
+            kitchenarr.push(kitchen)
             mainMenu()
         }
     )}
@@ -270,7 +302,7 @@ function newTeammate () {
         } else if (answer.role === "Front of House"){
             fohPrompt()
         } else{
-            fs.writeFileSync('./generateHTML.js', )
+            fs.writeFile('./generateHTML.js', )
         }
     })
 }

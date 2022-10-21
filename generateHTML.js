@@ -10,11 +10,11 @@ const formatHTML = Team => {
                     </div>
                     <div class="card-body">
                         <ul class="list">
-                            <li class="info"> first name ${Employee.getfirstname()}</li>
-                            <li class="info"> last name ${Employee.getlastname()}</li>
-                            <li class="info"> Office#: ${Manager.getOffice()}</li>
-                            <li class="info"> employee ID: ${Employee.getEmpId()}</li>
-                            <li class="info"> email: ${Employee.getEmail()}</li>
+                            <li class="info"> first name ${Manager.getfirstName()}</li>
+                            <li class="info"> last name ${Manager.getlastName()}</li>
+                            <li class="info"> Office#: ${Manager.getOfficeNum()}</li>
+                            <li class="info"> employee ID: ${Manager.getEmpId()}</li>
+                            <li class="info"> email: ${Manager.getEmail()}</li>
                         </ul>
                     </div>
                     
@@ -26,7 +26,7 @@ const formatHTML = Team => {
     const htmlFile = []
     htmlFile.push(Team
 
-        .filter(Employee => Employee.getRole() === 'Manager')
+        .filter(Manager => Manager.getRole() === 'Manager')
         .map(Manager => managerCard(Manager))
     )
 
