@@ -3,14 +3,15 @@ const fs = require("fs");
 const Manager = require('./lib/Manager.js');
 // const Foh = require('./lib/Foh');
 const Kitchen = require('./lib/Kitchen')
-const generateHTML = require('./generateHTML');
+const generateHTML = require('./generateHTML.js');
 const path = require("path");
+const { Console } = require("console");
 // const OUTPUT_DIR = path.resolve(__dirname, "output")
 // const outputPath = path.join(OUTPUT_DIR, "RastaPasta.html")
 // const teamMembers = [];
 const managerarr = []
 const kitchenarr = []
-// const foharr = []
+const foharr = []
 
 function mainMenu() {
     inquirer
@@ -49,6 +50,7 @@ function mainMenu() {
 mainMenu()
 
 
+
 function managerPrompt() {
     inquirer
         .prompt([
@@ -83,9 +85,10 @@ function managerPrompt() {
             {
                 type: "input",
                 message: "What is the Manager's ID?",
-                name: "empId",
-                validate: idInput => {
-                    if (idInput) {
+                name: "EmpId",
+                validate: EmpIdInput => {
+                    if (EmpIdInput) {
+                        console.log( 'This is Script js ln 89', EmpIdInput)
                         return true;
     
                     } else {
@@ -125,7 +128,7 @@ function managerPrompt() {
 
 
         ]) .then(answer => {
-            const manager = new Manager(answer.first_name, answer.last_name, answer.email, answer.empid, answer.officeNum)
+            const manager = new Manager(answer.first_name, answer.last_name, answer.email, answer.EmpId, answer.officeNum)
             managerarr.push(manager)
             mainMenu()
         })
@@ -165,7 +168,7 @@ function kitchenPrompt() {
             {
                 type: "input",
                 message: "What is the employee's ID?",
-                name: "empId",
+                name: "EmpId",
                 validate: idInput => {
                     if (idInput) {
                         return true;
@@ -205,7 +208,7 @@ function kitchenPrompt() {
                 },
             },
         ]).then(answer => {
-            const kitchen = new Kitchen(answer.first_name, answer.last_name, answer.email, answer.empid, answer.safety)
+            const kitchen = new Kitchen(answer.first_name, answer.last_name, answer.email, answer.EmpId, answer.safety)
             kitchenarr.push(kitchen)
             mainMenu()
         }
@@ -245,9 +248,9 @@ function fohPrompt() {
             {
                 type: "input",
                 message: "What is the employee's ID?",
-                name: "empId",
-                validate: idInput => {
-                    if (idInput) {
+                name: "EmpId",
+                validate: EmpIdInput => {
+                    if (EmpIdInput) {
                         return true;
     
                     } else {
@@ -286,33 +289,44 @@ function fohPrompt() {
             },
 
 
-        ])
+        ]).then(answer => {
+            const foh = new foh(answer.first_name, answer.last_name, answer.email, answer.EmpId, answer.officeNum)
+            foharr.push(foh)
+            mainMenu()
+        })
 }
 
 function newTeammate () {
+    console.log('This is ln 300')
     inquirer
-    .prompt([
-
-    {
-        type: "list",
-        message: "Which department does the new employee belong to?",
+        .prompt([
+            {
+                type: "list",
+                message: "Which department does the new employee belong to?",
         // create an async function for employeeRoles to put below
-        choices: ["Kitchen", "Front of House", "I'm done"],
-        name: "role",
-
-    }]) .then(answer => {
-        if (answer.role === "Kitchen"){
-            kitchenPrompt()
-        } else if (answer.role === "Front of House"){
-            fohPrompt()
-        } else{
-            fs.writeFile('./generateHTML.js', )
-        }
-    })
+                choices: ["Kitchen", "Front of House", "I'm done"],
+                name: "role",
+            }]) .then(answer => {
+                if (answer.role === "Kitchen"){
+                    console.log("This is ln 311", answer.role)
+                    kitchenPrompt()
+                }
+            })
+    //         if (answer.role === "Kitchen"){
+    //             kitchenPrompt()
+    //         } else if (answer.role === "Front of House"){
+    //             fohPrompt()
+    //         } else{
+    //             fs.writeFile('./generateHTML.js', )
+    //         }
+    //     }) .then(async answer =>{
+    //         console.log(await newTeammate(answer))
+    //     })
 }
 
 function imDone() {
-    fs.writeFile( 'RastaPasta.html', generateHTML(managerarr), (error) => {
+    console.log('this ln 328 script js', kitchenarr)
+    fs.writeFile( 'RastaPasta.html', generateHTML(managerarr, foharr, kitchenarr), (error) => {
         if (error) {
             console.log(`This is error ${error}`)
         } else {
