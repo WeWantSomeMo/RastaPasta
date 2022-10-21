@@ -1,5 +1,6 @@
 const Employee = require("./lib/Employee")
 const Kitchen = require("./lib/Kitchen")
+const Manager = require("./lib/Manager")
 
 const formatHTML = Team => {
     console.log(`This is ln5 of HTML.`, Team)
@@ -34,7 +35,11 @@ const formatHTML = Team => {
 }
 
 module.exports = Team => {
-    console.log('This is ln 37 HTML', Team)
+    console.log('This is ln 37 HTML',Team)
+    console.log('This is Team 0', Team[0].length)
+    if (Team[0].length != 0) {
+        console.log('This is Manager', Team[0])
+    }
     return `
         <!DOCTYPE html>
         <html lang="en">

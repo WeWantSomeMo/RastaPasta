@@ -326,7 +326,7 @@ function newTeammate () {
 
 function imDone() {
     console.log('this ln 328 script js', kitchenarr)
-    fs.writeFile( 'RastaPasta.html', generateHTML(managerarr, foharr, kitchenarr), (error) => {
+    fs.writeFile( 'RastaPasta.html', generateHTML([managerarr, foharr, kitchenarr]), (error) => {
         if (error) {
             console.log(`This is error ${error}`)
         } else {
