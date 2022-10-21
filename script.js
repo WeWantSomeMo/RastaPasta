@@ -23,15 +23,19 @@ function mainMenu() {
                
             } 
 
-        ]).then(answer => {
+        ]).then((answer) => {
+
             if (answer.mainMenu === "Add New Teammate"){
                 newTeammate()
             } else if (answer.mainMenu === "Add New Manager"){
                 managerPrompt() 
-            }  else {
-                // fs.mkdirSync(OUTPUT_DIR)
-                fs.writeFile( 'RastaPasta.html', generateHTML(managerarr), "utf-8")
+            } else {
+                imDone()
             }
+            // }  else {
+            //     // fs.mkdirSync(OUTPUT_DIR)
+            //     fs.writeFile( 'RastaPasta.html', generateHTML(managerarr), "utf-8")
+            // }
         })
 }
 
@@ -303,6 +307,16 @@ function newTeammate () {
             fohPrompt()
         } else{
             fs.writeFile('./generateHTML.js', )
+        }
+    })
+}
+
+function imDone() {
+    fs.writeFile( 'RastaPasta.html', generateHTML(managerarr), (error) => {
+        if (error) {
+            console.log(`This is error ${error}`)
+        } else {
+            console.log('File created!')
         }
     })
 }
