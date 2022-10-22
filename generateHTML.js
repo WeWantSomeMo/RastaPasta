@@ -44,6 +44,25 @@ const kitchenCard = Kitchen => {
         </div>
          `
 }
+const fohCard = Foh => {
+    return `
+        <div class="card">
+            <div class="card-header">
+                <h1 class="title"> Foh </h1>
+                <h2 class="role">${Foh.getRole()}</h2>
+            </div>
+            <div class="card-body">
+                <ul class="list">
+                    <li class="info"> first name ${Foh.getfirstName()}</li>
+                    <li class="info"> last name ${Foh.getlastName()}</li>
+                    <li class="info"> TABC: ${Foh.getTABC()}</li>
+                    <li class="info"> employee ID: ${Foh.getEmpId()}</li>
+                    <li class="info"> email: ${Foh.getEmail()}</li>
+                </ul>
+            </div>            
+        </div>
+         `
+}
 
 
 const formatHTML = Team => {
@@ -58,10 +77,10 @@ const formatHTML = Team => {
         .map(Manager => managerCard(Manager))
     )
 
-    // htmlFile.push(fohTeams
-    //     .filter(Manager => Manager.getRole() === 'Manager')
-    //     .map(Manager => managerCard(Manager))
-    // )
+    htmlFile.push(fohTeams
+        .filter(Foh => Foh.getRole() === 'Foh')
+        .map(Foh => fohCard(Foh))
+    )
 
     htmlFile.push(kitchenTeams
         .filter(Kitchen => Kitchen.getRole() === 'Kitchen')

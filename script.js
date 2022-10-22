@@ -1,11 +1,11 @@
 const inquirer = require("inquirer")
 const fs = require("fs");
 const Manager = require('./lib/Manager.js');
-// const Foh = require('./lib/Foh');
+const Foh = require('./lib/Foh');
 const Kitchen = require('./lib/Kitchen')
 const generateHTML = require('./generateHTML.js');
-const path = require("path");
-const { Console } = require("console");
+// const path = require("path");
+// const { Console } = require("console");
 // const OUTPUT_DIR = path.resolve(__dirname, "output")
 // const outputPath = path.join(OUTPUT_DIR, "RastaPasta.html")
 // const teamMembers = [];
@@ -287,10 +287,8 @@ function fohPrompt() {
                     }
                 },
             },
-
-
         ]).then(answer => {
-            const foh = new foh(answer.first_name, answer.last_name, answer.email, answer.EmpId, answer.officeNum)
+            const foh = new Foh(answer.first_name, answer.last_name, answer.email, answer.EmpId, answer.TABC)
             foharr.push(foh)
             mainMenu()
         })
@@ -310,6 +308,10 @@ function newTeammate () {
                 if (answer.role === "Kitchen"){
                     console.log("This is ln 311", answer.role)
                     kitchenPrompt()
+                } else if (answer.role === "Front of House"){
+                    console.log('This is ln 314', answer.role)
+                    fohPrompt()
+                    
                 }
             })
     //         if (answer.role === "Kitchen"){
